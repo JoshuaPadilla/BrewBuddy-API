@@ -1,0 +1,28 @@
+import { Alert } from "react-native";
+
+export const isRegistrationFormValid = (form: RegistrationForm) => {
+  if (
+    !form.email.trim() ||
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email)
+  ) {
+    Alert.alert("invalid email");
+    return false;
+  }
+
+  if (form.password.length < 8) {
+    Alert.alert("password must be atleast 8 characters long");
+    return false;
+  }
+
+  if (form.password !== form.confirmPassword) {
+    Alert.alert("passwords do not match");
+    return false;
+  }
+
+  if (!form.number || !form.firstName || !form.lastName) {
+    Alert.alert("Please fill in all fields");
+    return false;
+  }
+
+  return true;
+};

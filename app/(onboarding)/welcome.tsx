@@ -1,0 +1,121 @@
+import { View, Text, Dimensions, ScrollView, Image } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { images } from "@/constants/images";
+import { util_icons } from "@/constants/icons";
+import ProductCard from "@/components/product_card";
+import CustomButton from "@/components/custom_button";
+import { goToHome, goToLogin } from "@/helpers/router_function";
+
+const Welcome = () => {
+  const totalScreenHeight = Dimensions.get("screen").height;
+  const totalScreenWidth = Dimensions.get("screen").width;
+
+  return (
+    <SafeAreaView className="flex-1">
+      <ScrollView className="pb-[100px]" showsVerticalScrollIndicator={false}>
+        <View
+          className={`bg-primary-100 items-center pt-10`}
+          style={{ height: totalScreenHeight * 0.55 }}
+        >
+          {/* Headings */}
+          <View className="items-center justify-center">
+            <Text className="font-jomhuria-regular text-7xl text-white">
+              BrewBuddy
+            </Text>
+            {/* Image */}
+            <View className="shadow drop-shadow-2xl ">
+              <Image
+                source={images.banner}
+                resizeMode="contain"
+                style={{ width: totalScreenWidth, height: 250 }}
+                className="rounded-2xl"
+              />
+            </View>
+          </View>
+
+          {/* main */}
+          <View className="bg-white h-60 w-5/6 absolute -bottom-32 rounded-2xl p-4 shadow">
+            {/* text */}
+            <View className="items-center gap-[-20px]">
+              <Text
+                className="font-jomhuria-regular text-primary-100 "
+                style={{ fontSize: 32, margin: 0, padding: 0, lineHeight: 25 }}
+              >
+                Welcome To
+              </Text>
+              <Text
+                className="font-jomhuria-regular"
+                style={{ fontSize: 48, margin: 0, padding: 0, lineHeight: 40 }}
+              >
+                BREW BUDDY
+              </Text>
+              <Text
+                className="font-judson-italic"
+                style={{ fontSize: 16, margin: 0, padding: 0, lineHeight: 15 }}
+              >
+                Brewing Happiness, Just for you
+              </Text>
+            </View>
+
+            {/* tab */}
+            <View className="items-center mt-4">
+              <View className="rounded-full w-[80%] h-[50px] bg-primary-200 overflow-hidden flex-row justify-between">
+                <View className="items-center justify-center h-full w-[50%] bg-primary-100 rounded-full">
+                  <Text className="font-poppins-medium text-white text-sm">
+                    SELF PICK-UP
+                  </Text>
+                </View>
+
+                <View className="items-center justify-center h-full w-[50%] bg-primary-200 rounded-full">
+                  <Text className="font-poppins-medium text-primary-100 text-sm">
+                    DELIVERY
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View className="flex-row gap-2 items-center justify-center mt-3">
+              <Image source={util_icons.clock} className="size-8" />
+
+              <Text className="font-poppins-semibold text-black-100 text-sm">
+                Self pick-up: ASAP (15-30 mins)
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View
+          className="items-center justify-center gap-2
+          "
+          style={{ height: totalScreenHeight * 0.4 }}
+        >
+          <CustomButton
+            title="Voucher and Rewards"
+            btnClassname={`border-2 border-primary-100 rounded-xl w-[80%] items-center justify-center p-4`}
+            textClassname="font-poppins-bold text-primary-100 text-xl"
+            onPress={goToHome}
+          />
+
+          <CustomButton
+            title="Login to Brew Buddy"
+            btnClassname={`border-2 border-primary-100 rounded-xl w-[80%] items-center justify-center p-4`}
+            textClassname="font-poppins-bold text-primary-100 text-xl"
+            onPress={goToLogin}
+          />
+        </View>
+
+        {/* Menu Items */}
+
+        <View className="flex-row justify-between flex-wrap p-4">
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default Welcome;
