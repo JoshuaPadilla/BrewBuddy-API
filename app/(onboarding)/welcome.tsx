@@ -100,13 +100,6 @@ const Welcome = () => {
           style={{ height: totalScreenHeight * 0.4 }}
         >
           <CustomButton
-            title="Voucher and Rewards"
-            btnClassname={`border-2 border-primary-100 rounded-xl w-[80%] items-center justify-center p-4`}
-            textClassname="font-poppins-bold text-primary-100 text-xl"
-            onPress={goToHome}
-          />
-
-          <CustomButton
             title="Login to Brew Buddy"
             btnClassname={`border-2 border-primary-100 rounded-xl w-[80%] items-center justify-center p-4`}
             textClassname="font-poppins-bold text-primary-100 text-xl"

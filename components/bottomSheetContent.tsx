@@ -2,7 +2,7 @@ import { View, Text, Image, ScrollView } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { images } from "@/constants/images";
 import { useProductStore } from "@/store/useProduct";
-import { priceFormatted } from "@/helpers/utils";
+import { generateUniqueID, priceFormatted } from "@/helpers/utils";
 import QuatityButton from "./quantity_button";
 import RadioButtonGroup from "./radio_button_group";
 import { ADD_ONS, SIZES, SWEETNESS } from "@/constants/cart_constants";
@@ -68,7 +68,7 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
   };
 
   const handleAddToCart = () => {
-    addToCart(orderItem);
+    addToCart({ ...orderItem });
     onSubmit();
   };
 
@@ -78,11 +78,11 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
   return (
     <View>
       <ScrollView
-        contentContainerClassName="pb-[100px] px-4 gap-4"
+        contentContainerClassName="pb-[150px] px-4 gap-4 "
         showsVerticalScrollIndicator={false}
       >
         {/* product */}
-        <View className="flex-row gap-4">
+        <View className="flex-row gap-4 ">
           <Image
             source={images.p1}
             resizeMethod="auto"

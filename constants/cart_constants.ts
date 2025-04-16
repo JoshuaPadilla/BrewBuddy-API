@@ -5,7 +5,7 @@ export const SIZES = [
 
 export const ADD_ONS = [
   { name: "Crystal Boba", price: 15 },
-  { name: "Tapioca Pearls (Boba)", price: 20 },
+  { name: "Tapioca Pearls", price: 20 },
   { name: "Leche Flan", price: 20 },
 ];
 export const SWEETNESS = [

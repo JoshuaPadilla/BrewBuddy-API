@@ -1,20 +1,44 @@
-import { View, Text, ScrollView } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/custom_button";
 import CartItem from "@/components/cart_item";
 import { useCartStore } from "@/store/useCart";
 import Spinner from "react-native-loading-spinner-overlay";
+import { priceFormatted } from "@/helpers/utils";
 
 const Cart = () => {
   const { cart, isLoading, fetchUserCartitems } = useCartStore();
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
+
+  const [total, setTotal] = useState(0);
+
+  const calculateTotal = () => {
+    setTotal(
+      selectedItems.reduce((acc, currItem) => {
+        return acc + currItem.itemTotalPrice;
+      }, 0)
+    );
+  };
+
+  const handleSelectItem = (item: OrderItem) => {
+    setSelectedItems((prev) => [...prev, item]);
+  };
+
+  const handleUnselectItem = (id: string) => {
+    setSelectedItems((prev) => prev.filter((item) => item._id !== id));
+  };
 
   useEffect(() => {
     fetchUserCartitems();
   }, []);
 
+  useEffect(() => {
+    calculateTotal();
+  }, [selectedItems]);
   return (
-    <SafeAreaView className="flex-1 p-4 gap-8">
+    <SafeAreaView className="flex-1 px-4 py-8 gap-8">
       <Spinner
         visible={isLoading}
         textContent={"fetching cart items..."}
@@ -23,19 +47,53 @@ const Cart = () => {
 
       {/* headings */}
       <View className="flex-row justify-between">
-        <CustomButton title="back" />
-        <Text>Cart</Text>
-        <CustomButton title="edit" />
+        <Text className="font-poppins-bold text-black-100 text-xl">
+          Your Cart
+        </Text>
+        <CustomButton
+          title={isSelecting ? "Cancel" : "Select"}
+          textClassname="font-poppins-medium text-primary-100"
+          onPress={() => setIsSelecting((prev) => (prev = !prev))}
+        />
       </View>
 
       {/* main */}
 
-      <ScrollView contentContainerClassName="pb-[100px] gap-2">
+      <ScrollView
+        contentContainerClassName="pb-[100px] gap-2"
+        showsVerticalScrollIndicator={false}
+      >
         {cart &&
           cart.map((orderItem, index) => (
-            <CartItem orderItem={orderItem} key={index} />
+            <CartItem
+              orderItem={orderItem}
+              key={index}
+              isSelecting={isSelecting}
+              onSelect={() => handleSelectItem(orderItem)}
+              onUnselect={() => handleUnselectItem(orderItem._id || "")}
+            />
           ))}
       </ScrollView>
+
+      {isSelecting && (
+        <View className="flex-row bg-white absolute w-full p-4 bottom-[90px] self-center rounded-xl justify-between">
+          <View>
+            <Text className="font-poppins-regular text-black-300 text-sm">
+              Total:
+            </Text>
+            <Text className="font-poppins-bold text-primary-100 text-2xl">
+              {priceFormatted(total)}
+            </Text>
+          </View>
+
+          <TouchableOpacity className="bg-primary-100 py-2 px-4 rounded-lg items-center justify-center ">
+            <Text className="font-poppins-medium text-white text-lg">
+              Check out ({selectedItems.length}{" "}
+              {selectedItems.length > 1 ? "items" : "item"})
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

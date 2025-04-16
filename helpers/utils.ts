@@ -40,7 +40,13 @@ export const textShortener = (originalWord: string, maxNumOfLetter: number) => {
 };
 
 export const priceFormatted = (price?: number): string => {
-  if (!price) return "";
+  if (!price) return "₱ 0";
 
   return `₱ ${price?.toFixed(2)}`;
+};
+
+export const generateUniqueID = (): string => {
+  const timestamp = Date.now().toString(36);
+
+  return `${Math.random().toString(36).substring(2, 12)} ${timestamp}`;
 };

@@ -61,7 +61,7 @@ const HomeTab = () => {
 
         {/* product list */}
         <ScrollView
-          contentContainerClassName="items-center"
+          contentContainerClassName="items-center overflow-hidden"
           showsVerticalScrollIndicator={false}
         >
           {isLoading ? (
@@ -71,7 +71,7 @@ const HomeTab = () => {
               size={"large"}
             />
           ) : (
-            <View className="flex-row justify-between flex-wrap">
+            <View className="flex-row justify-between flex-wrap overflow-hidden">
               {products.length > 0 &&
                 products.map((product, index) => (
                   <ProductCard

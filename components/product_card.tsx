@@ -31,15 +31,15 @@ const ProductCard = ({ product, onAddToCartPress }: ProductCardProps) => {
   };
 
   return (
-    <View className="p-2 w-[48%] h-[250px] mb-4 items-center gap-2">
+    <View className="p-2 w-[48%] h-[250px] mb-4 items-center gap-2 overflow-hidden">
       {/* product image */}
       <TouchableOpacity
-        className="bg-blue-100 w-52 h-52 overflow-hidden"
+        className="w-52 h-52 p-2 rounded-lg"
         onPress={handleProductPress}
       >
         <Image
           source={images.p1}
-          resizeMode="contain"
+          resizeMode="cover"
           className="size-full rounded-lg"
         />
       </TouchableOpacity>
@@ -57,7 +57,7 @@ const ProductCard = ({ product, onAddToCartPress }: ProductCardProps) => {
 
         <CustomButton
           iconLeft={util_icons.add_to_cart_icon}
-          iconSize="size-8"
+          iconSize="size-6"
           onPress={handleAddToCart}
         />
       </View>

@@ -9,6 +9,8 @@ import search from "@/assets/icons/util_icons/search_icon.png";
 import signin_email from "@/assets/icons/util_icons/signin_email.png";
 import signin_password from "@/assets/icons/util_icons/signin_password.png";
 import add_to_cart_icon from "@/assets/icons/util_icons/add_to_cart_icon.png";
+import trash_icon from "@/assets/icons/util_icons/trash_icon.png";
+import check_icon from "@/assets/icons/util_icons/check_icon.png";
 
 interface TabIconsProps {
   tab_account: ImageSourcePropType;
@@ -23,6 +25,8 @@ interface UtilIconsProps {
   signin_email: ImageSourcePropType;
   signin_password: ImageSourcePropType;
   add_to_cart_icon: ImageSourcePropType;
+  trash_icon: ImageSourcePropType;
+  check_icon: ImageSourcePropType;
 }
 
 export const util_icons: UtilIconsProps = {
@@ -31,6 +35,8 @@ export const util_icons: UtilIconsProps = {
   signin_email,
   signin_password,
   add_to_cart_icon,
+  trash_icon,
+  check_icon,
 };
 
 export const tab_icons: TabIconsProps = {
