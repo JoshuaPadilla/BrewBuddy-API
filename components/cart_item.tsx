@@ -12,6 +12,8 @@ interface ComponentProps {
   isSelecting: boolean;
   onSelect: () => void;
   onUnselect: () => void;
+  onRemove: () => void;
+  onCheckout: () => void;
 }
 
 const CartItem = ({
@@ -19,6 +21,8 @@ const CartItem = ({
   isSelecting,
   onUnselect,
   onSelect,
+  onRemove,
+  onCheckout,
 }: ComponentProps) => {
   const [selected, setSelected] = useState(false);
 
@@ -30,6 +34,14 @@ const CartItem = ({
   const handleUnselet = () => {
     setSelected(false);
     onUnselect();
+  };
+
+  const handleOnRemove = () => {
+    onRemove();
+  };
+
+  const handleOnCheckout = () => {
+    onCheckout();
   };
 
   return (
@@ -104,6 +116,7 @@ const CartItem = ({
               <CustomButton
                 title="checkout"
                 btnClassname="py-1 px-2 bg-primary-100 rounded-lg"
+                onPress={handleOnCheckout}
               />
             )}
 
@@ -123,6 +136,7 @@ const CartItem = ({
             <CustomButton
               iconLeft={util_icons.trash_icon}
               tintColor="#8C8E98"
+              onPress={handleOnRemove}
             />
           </View>
         </View>

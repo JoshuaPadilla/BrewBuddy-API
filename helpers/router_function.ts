@@ -11,3 +11,7 @@ export const goToLogin = () => {
 export const goToRegister = () => {
   router.replace("/(onboarding)/register");
 };
+
+export const goToCheckout = () => {
+  router.push("/(ordering_screens)/checkout");
+};

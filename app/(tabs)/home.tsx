@@ -17,7 +17,6 @@ import BottomSheetComponent from "@/components/bottomSheetContent";
 import { useCartStore } from "@/store/useCart";
 
 const HomeTab = () => {
-  const { cart } = useCartStore();
   const sheetRef = useRef<BottomSheetMethods>(null);
 
   const { products, isLoading, fetchAllProducts, selectedProduct } =

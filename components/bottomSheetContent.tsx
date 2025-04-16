@@ -14,7 +14,7 @@ interface Props {
 }
 
 const BottomSheetComponent = ({ onSubmit }: Props) => {
-  const { selectedProduct } = useProductStore();
+  const { selectedProduct, setSelectedProduct } = useProductStore();
   const { addToCart } = useCartStore();
 
   const [orderItem, setOrderItem] = useState<OrderItemForm>({
@@ -26,7 +26,6 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
       price: 0,
     },
     itemTotalPrice: selectedProduct!.productBasePrice,
-    productID: selectedProduct?._id || "",
   });
 
   const handleAddOnsSelect = (value: OptionItem) => {
@@ -68,7 +67,7 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
   };
 
   const handleAddToCart = () => {
-    addToCart({ ...orderItem });
+    addToCart({ ...orderItem, productID: selectedProduct?._id });
     onSubmit();
   };
 

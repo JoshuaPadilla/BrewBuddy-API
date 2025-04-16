@@ -9,7 +9,7 @@ interface StoreState {
   isLoading: boolean;
 
   fetchAllProducts: () => void;
-  setSelectedProduct: (product: Product) => void;
+  setSelectedProduct: (product: Product | null) => void;
 }
 
 export const useProductStore = create<StoreState>((set) => ({

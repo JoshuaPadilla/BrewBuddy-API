@@ -41,7 +41,7 @@ declare interface OrderItem {
 }
 
 declare interface OrderItemForm {
-  productID: String;
+  productID?: String;
   quantity: number;
   addOns: { name: string; price: number };
   itemSize: { name: string; price: number };

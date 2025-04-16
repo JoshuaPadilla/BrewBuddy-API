@@ -6,9 +6,16 @@ import CartItem from "@/components/cart_item";
 import { useCartStore } from "@/store/useCart";
 import Spinner from "react-native-loading-spinner-overlay";
 import { priceFormatted } from "@/helpers/utils";
+import { goToCheckout } from "@/helpers/router_function";
 
 const Cart = () => {
-  const { cart, isLoading, fetchUserCartitems } = useCartStore();
+  const {
+    cart,
+    isLoading,
+    fetchUserCartitems,
+    removeItem,
+    setSelectedItems: setCartSelectedItems,
+  } = useCartStore();
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
 
@@ -28,6 +35,20 @@ const Cart = () => {
 
   const handleUnselectItem = (id: string) => {
     setSelectedItems((prev) => prev.filter((item) => item._id !== id));
+  };
+
+  const handleRemoveItem = (id: string) => {
+    removeItem(id);
+  };
+
+  const handleOnCheckoutSelected = () => {
+    setCartSelectedItems(selectedItems);
+    goToCheckout();
+  };
+
+  const handleOnCheckoutOne = (item: OrderItem) => {
+    setCartSelectedItems([item]);
+    goToCheckout();
   };
 
   useEffect(() => {
@@ -71,6 +92,8 @@ const Cart = () => {
               isSelecting={isSelecting}
               onSelect={() => handleSelectItem(orderItem)}
               onUnselect={() => handleUnselectItem(orderItem._id || "")}
+              onRemove={() => handleRemoveItem(orderItem._id || "")}
+              onCheckout={() => handleOnCheckoutOne(orderItem)}
             />
           ))}
       </ScrollView>
@@ -86,7 +109,10 @@ const Cart = () => {
             </Text>
           </View>
 
-          <TouchableOpacity className="bg-primary-100 py-2 px-4 rounded-lg items-center justify-center ">
+          <TouchableOpacity
+            className="bg-primary-100 py-2 px-4 rounded-lg items-center justify-center"
+            onPress={handleOnCheckoutSelected}
+          >
             <Text className="font-poppins-medium text-white text-lg">
               Check out ({selectedItems.length}{" "}
               {selectedItems.length > 1 ? "items" : "item"})

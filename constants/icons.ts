@@ -11,6 +11,7 @@ import signin_password from "@/assets/icons/util_icons/signin_password.png";
 import add_to_cart_icon from "@/assets/icons/util_icons/add_to_cart_icon.png";
 import trash_icon from "@/assets/icons/util_icons/trash_icon.png";
 import check_icon from "@/assets/icons/util_icons/check_icon.png";
+import back_icon from "@/assets/icons/util_icons/back_icon.png";
 
 interface TabIconsProps {
   tab_account: ImageSourcePropType;
@@ -27,6 +28,7 @@ interface UtilIconsProps {
   add_to_cart_icon: ImageSourcePropType;
   trash_icon: ImageSourcePropType;
   check_icon: ImageSourcePropType;
+  back_icon: ImageSourcePropType;
 }
 
 export const util_icons: UtilIconsProps = {
@@ -37,6 +39,7 @@ export const util_icons: UtilIconsProps = {
   add_to_cart_icon,
   trash_icon,
   check_icon,
+  back_icon,
 };
 
 export const tab_icons: TabIconsProps = {
