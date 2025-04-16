@@ -31,7 +31,17 @@ declare interface Product {
 }
 
 declare interface OrderItem {
-  productID: string;
+  _id?: string;
+  productID: Product;
+  quantity: number;
+  addOns: { name: string; price: number };
+  itemSize: { name: string; price: number };
+  sweetnessLevel: { name: string; price: number };
+  itemTotalPrice: number;
+}
+
+declare interface OrderItemForm {
+  productID: String;
   quantity: number;
   addOns: { name: string; price: number };
   itemSize: { name: string; price: number };
@@ -42,4 +52,19 @@ declare interface OrderItem {
 declare interface OptionItem {
   name: string;
   price: number;
+}
+
+declare interface Order {
+  userID?: string;
+  items: OrderItem[];
+  totalPrice: 0;
+  orderDate: Date;
+  status: "pending" | "processing" | "completed" | "cancelled";
+  customerNote: string;
+}
+
+declare interface OrderForm {
+  items: OrderItem[];
+  totalPrice: 0;
+  customerNote: string;
 }

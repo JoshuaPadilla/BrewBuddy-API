@@ -14,8 +14,10 @@ import { images } from "@/constants/images";
 import { useProductStore } from "@/store/useProduct";
 import BottomSheet, { BottomSheetMethods } from "@devvie/bottom-sheet";
 import BottomSheetComponent from "@/components/bottomSheetContent";
+import { useCartStore } from "@/store/useCart";
 
 const HomeTab = () => {
+  const { cart } = useCartStore();
   const sheetRef = useRef<BottomSheetMethods>(null);
 
   const { products, isLoading, fetchAllProducts, selectedProduct } =
@@ -27,6 +29,10 @@ const HomeTab = () => {
 
   const handleCartPress = () => {
     sheetRef.current?.open();
+  };
+
+  const handleAddToCartSubmit = () => {
+    sheetRef.current?.close();
   };
 
   const [query, setQuery] = useState("");
@@ -86,7 +92,11 @@ const HomeTab = () => {
         style={{ backgroundColor: "#FFFFFF" }}
         disableBodyPanning={true}
       >
-        <View>{selectedProduct && <BottomSheetComponent />}</View>
+        <View>
+          {selectedProduct && (
+            <BottomSheetComponent onSubmit={handleAddToCartSubmit} />
+          )}
+        </View>
       </BottomSheet>
     </>
   );

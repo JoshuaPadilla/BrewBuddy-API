@@ -7,13 +7,17 @@ import QuatityButton from "./quantity_button";
 import RadioButtonGroup from "./radio_button_group";
 import { ADD_ONS, SIZES, SWEETNESS } from "@/constants/cart_constants";
 import CustomButton from "./custom_button";
+import { useCartStore } from "@/store/useCart";
 
-interface Props {}
+interface Props {
+  onSubmit: () => void;
+}
 
-const BottomSheetComponent = () => {
+const BottomSheetComponent = ({ onSubmit }: Props) => {
   const { selectedProduct } = useProductStore();
+  const { addToCart } = useCartStore();
 
-  const [orderItem, setOrderItem] = useState<OrderItem>({
+  const [orderItem, setOrderItem] = useState<OrderItemForm>({
     quantity: 1,
     itemSize: { name: "Regular", price: 0 },
     addOns: { name: "", price: 0 },
@@ -61,6 +65,11 @@ const BottomSheetComponent = () => {
       ...prev,
       itemSize: value,
     }));
+  };
+
+  const handleAddToCart = () => {
+    addToCart(orderItem);
+    onSubmit();
   };
 
   useEffect(() => {
@@ -183,6 +192,7 @@ const BottomSheetComponent = () => {
           title="Add to cart"
           btnClassname="p-4 items-center justify-center bg-primary-100 mt-4 rounded-xl"
           textClassname="font-poppins-semibold text-white text-lg"
+          onPress={handleAddToCart}
         />
       </ScrollView>
     </View>

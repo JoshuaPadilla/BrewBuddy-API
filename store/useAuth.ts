@@ -3,6 +3,7 @@ import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { Alert } from "react-native";
+import { useCartStore } from "./useCart";
 
 interface StoreState {
   authUser: User | null;
@@ -118,7 +119,6 @@ export const useAuthStore = create<StoreState>((set) => ({
       const data = await res.json();
 
       if (data.user) {
-        const isAdmin = data.user.role === "admin";
         set({ authUser: data.user });
 
         // Import usePetStore at the top of the file and use it here
