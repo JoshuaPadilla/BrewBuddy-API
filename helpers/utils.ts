@@ -26,3 +26,21 @@ export const isRegistrationFormValid = (form: RegistrationForm) => {
 
   return true;
 };
+
+export const textShortener = (originalWord: string, maxNumOfLetter: number) => {
+  if (!originalWord) {
+    return ""; // Handle null or empty input
+  }
+
+  if (originalWord.length <= maxNumOfLetter) {
+    return originalWord; // Return original if short enough
+  }
+
+  return originalWord.substring(0, maxNumOfLetter) + "...";
+};
+
+export const priceFormatted = (price?: number): string => {
+  if (!price) return "";
+
+  return `₱ ${price?.toFixed(2)}`;
+};

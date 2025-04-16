@@ -1,4 +1,11 @@
-import { View, Text, Dimensions, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants/images";
@@ -6,10 +13,12 @@ import { util_icons } from "@/constants/icons";
 import ProductCard from "@/components/product_card";
 import CustomButton from "@/components/custom_button";
 import { goToHome, goToLogin } from "@/helpers/router_function";
+import { useProductStore } from "@/store/useProduct";
 
 const Welcome = () => {
   const totalScreenHeight = Dimensions.get("screen").height;
   const totalScreenWidth = Dimensions.get("screen").width;
+  const { products, isLoading } = useProductStore();
 
   return (
     <SafeAreaView className="flex-1">
@@ -107,12 +116,20 @@ const Welcome = () => {
 
         {/* Menu Items */}
 
-        <View className="flex-row justify-between flex-wrap p-4">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </View>
+        {isLoading ? (
+          <ActivityIndicator
+            color={"#73C088"}
+            className="p-32"
+            size={"large"}
+          />
+        ) : (
+          <View className="flex-row justify-between flex-wrap">
+            {products.length > 0 &&
+              products.map((product, index) => (
+                <ProductCard key={index} product={product} />
+              ))}
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

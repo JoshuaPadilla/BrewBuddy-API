@@ -8,6 +8,7 @@ import clock from "@/assets/icons/util_icons/icon_clock.png";
 import search from "@/assets/icons/util_icons/search_icon.png";
 import signin_email from "@/assets/icons/util_icons/signin_email.png";
 import signin_password from "@/assets/icons/util_icons/signin_password.png";
+import add_to_cart_icon from "@/assets/icons/util_icons/add_to_cart_icon.png";
 
 interface TabIconsProps {
   tab_account: ImageSourcePropType;
@@ -21,6 +22,7 @@ interface UtilIconsProps {
   search: ImageSourcePropType;
   signin_email: ImageSourcePropType;
   signin_password: ImageSourcePropType;
+  add_to_cart_icon: ImageSourcePropType;
 }
 
 export const util_icons: UtilIconsProps = {
@@ -28,6 +30,7 @@ export const util_icons: UtilIconsProps = {
   search,
   signin_email,
   signin_password,
+  add_to_cart_icon,
 };
 
 export const tab_icons: TabIconsProps = {
