@@ -40,7 +40,7 @@ export default function TabLayout() {
   if (!authUser) return <Redirect href="/welcome" />;
   return (
     <>
-      <StatusBar style="dark" translucent />
+      <StatusBar style="dark" translucent backgroundColor="#73C088" />
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,

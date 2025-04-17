@@ -1,4 +1,5 @@
 import { Alert } from "react-native";
+import moment from "moment";
 
 export const isRegistrationFormValid = (form: RegistrationForm) => {
   if (
@@ -49,4 +50,10 @@ export const generateUniqueID = (): string => {
   const timestamp = Date.now().toString(36);
 
   return `${Math.random().toString(36).substring(2, 12)} ${timestamp}`;
+};
+
+export const dateTimeFormatted = (dateString: string): string => {
+  const momentObject = moment(dateString);
+
+  return momentObject.format("MMMM DD hh:mm A");
 };

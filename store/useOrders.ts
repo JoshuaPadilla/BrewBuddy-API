@@ -5,12 +5,17 @@ import { Alert } from "react-native";
 import { router } from "expo-router";
 
 interface StoreState {
+  orders: Order[];
   isCreating: boolean;
+  isLoading: boolean;
   createOrder: (order: OrderForm) => void;
+  getAllOrders: () => void;
 }
 
 export const useOrderStore = create<StoreState>((set) => ({
+  orders: [],
   isCreating: false,
+  isLoading: false,
 
   createOrder: async (order) => {
     try {
@@ -38,6 +43,34 @@ export const useOrderStore = create<StoreState>((set) => ({
       console.log("Creating order: ", error);
     } finally {
       set({ isCreating: false });
+    }
+  },
+
+  getAllOrders: async () => {
+    try {
+      set({ isLoading: true });
+
+      const token = await AsyncStorage.getItem("token");
+
+      const res = await fetch(`${BASE_URL}/order`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json", // Add this line
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        set({ orders: data.userOrders });
+      } else {
+        Alert.alert("failed to fetch your orders");
+      }
+    } catch (error) {
+      console.log("Fetching orders: ", error);
+    } finally {
+      set({ isLoading: false });
     }
   },
 }));

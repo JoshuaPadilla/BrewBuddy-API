@@ -117,6 +117,7 @@ const CartItem = ({
                 title="checkout"
                 btnClassname="py-1 px-2 bg-primary-100 rounded-lg"
                 onPress={handleOnCheckout}
+                textClassname="text-white font-poppins-medium text-sm"
               />
             )}
 

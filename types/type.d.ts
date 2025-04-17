@@ -55,10 +55,11 @@ declare interface OptionItem {
 }
 
 declare interface Order {
+  _id: string;
   userID?: string;
   items: OrderItem[];
-  totalPrice: 0;
-  orderDate: Date;
+  totalPrice: number;
+  orderDate: String;
   status: "pending" | "processing" | "completed" | "cancelled";
   customerNote: string;
 }
