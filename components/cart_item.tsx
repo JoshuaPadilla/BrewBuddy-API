@@ -1,11 +1,12 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import { images } from "@/constants/images";
 import CustomButton from "./custom_button";
 import QuatityButton from "./quantity_button";
 import { priceFormatted } from "@/helpers/utils";
 import { util_icons } from "@/constants/icons";
+import { blurhash } from "@/constants";
 
 interface ComponentProps {
   orderItem: OrderItem;
@@ -47,7 +48,18 @@ const CartItem = ({
   return (
     <View>
       <View className="flex-row gap-4 bg-white py-4 pl-4 rounded-lg">
-        <Image source={images.p1} className="size-32 rounded-lg" />
+        <View className="size-32 rounded-lg overflow-hidden">
+          <Image
+            source={
+              orderItem.productID.productImageUrl
+                ? orderItem.productID.productImageUrl
+                : undefined
+            }
+            style={{ width: "100%", height: "100%" }}
+            placeholder={{ blurhash }}
+            contentFit="cover"
+          />
+        </View>
 
         <View className="gap-2 flex-row justify-between flex-1">
           {/* title and options */}
@@ -88,8 +100,6 @@ const CartItem = ({
                 </Text>
               </View>
             </View>
-
-            <View className=""></View>
           </View>
 
           {/* price quant and button */}

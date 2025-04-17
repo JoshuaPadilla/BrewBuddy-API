@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { images } from "@/constants/images";
 import { useProductStore } from "@/store/useProduct";
@@ -7,6 +7,8 @@ import CustomButton from "./custom_button";
 import { util_icons } from "@/constants/icons";
 import { useAuthStore } from "@/store/useAuth";
 import { goToLogin } from "@/helpers/router_function";
+import { Image } from "expo-image";
+import { blurhash } from "@/constants";
 
 interface ProductCardProps {
   product: Product;
@@ -38,9 +40,10 @@ const ProductCard = ({ product, onAddToCartPress }: ProductCardProps) => {
         onPress={handleProductPress}
       >
         <Image
-          source={images.p1}
-          resizeMode="cover"
-          className="size-full rounded-lg"
+          source={product.productImageUrl ? product.productImageUrl : undefined}
+          contentFit="cover"
+          style={{ width: "100%", height: "100%", borderRadius: 5 }}
+          placeholder={{ blurhash }}
         />
       </TouchableOpacity>
 

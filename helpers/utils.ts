@@ -41,7 +41,7 @@ export const textShortener = (originalWord: string, maxNumOfLetter: number) => {
 };
 
 export const priceFormatted = (price?: number): string => {
-  if (!price || typeof price !== "number") return "₱ 0.00";
+  if (!price || isNaN(price)) return "₱ 0.00";
 
   return `₱ ${price!.toFixed(2)}`;
 };

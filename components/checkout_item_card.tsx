@@ -1,17 +1,29 @@
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import { Image } from "expo-image";
+
 import React from "react";
 import { images } from "@/constants/images";
 import { priceFormatted } from "@/helpers/utils";
+import { blurhash } from "@/constants";
 
 interface ComponentProps {
   item: OrderItem;
 }
 
 const CheckoutItemCard = ({ item }: ComponentProps) => {
+  console.log(item);
+
   return (
     <View className="bg-white">
       <View className="flex-row gap-4  py-4 px-4 rounded-lg">
-        <Image source={images.p1} className="size-16 rounded-lg" />
+        <View className="size-16 rounded-lg overflow-hidden">
+          <Image
+            source={item.productID.productImageUrl}
+            style={{ width: "100%", height: "100%" }}
+            placeholder={{ blurhash }}
+            contentFit="cover"
+          />
+        </View>
 
         {/* Info */}
         <View className="flex-1">

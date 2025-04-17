@@ -3,7 +3,7 @@ import {
   Text,
   Dimensions,
   ScrollView,
-  Image,
+  Image as RNImage,
   ActivityIndicator,
 } from "react-native";
 import React from "react";
@@ -14,6 +14,7 @@ import ProductCard from "@/components/product_card";
 import CustomButton from "@/components/custom_button";
 import { goToHome, goToLogin } from "@/helpers/router_function";
 import { useProductStore } from "@/store/useProduct";
+import { Image } from "expo-image";
 
 const Welcome = () => {
   const totalScreenHeight = Dimensions.get("screen").height;
@@ -36,9 +37,12 @@ const Welcome = () => {
             <View className="shadow drop-shadow-2xl ">
               <Image
                 source={images.banner}
-                resizeMode="contain"
-                style={{ width: totalScreenWidth, height: 250 }}
-                className="rounded-2xl"
+                contentFit="contain"
+                style={{
+                  width: totalScreenWidth,
+                  height: 250,
+                  borderRadius: 30,
+                }}
               />
             </View>
           </View>
@@ -85,7 +89,7 @@ const Welcome = () => {
             </View>
 
             <View className="flex-row gap-2 items-center justify-center mt-3">
-              <Image source={util_icons.clock} className="size-8" />
+              <RNImage source={util_icons.clock} className="size-8" />
 
               <Text className="font-poppins-semibold text-black-100 text-sm">
                 Self pick-up: ASAP (15-30 mins)

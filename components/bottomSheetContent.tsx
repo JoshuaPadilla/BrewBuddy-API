@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { images } from "@/constants/images";
 import { useProductStore } from "@/store/useProduct";
 import { generateUniqueID, priceFormatted } from "@/helpers/utils";
@@ -8,6 +8,7 @@ import RadioButtonGroup from "./radio_button_group";
 import { ADD_ONS, SIZES, SWEETNESS } from "@/constants/cart_constants";
 import CustomButton from "./custom_button";
 import { useCartStore } from "@/store/useCart";
+import { Image } from "expo-image";
 
 interface Props {
   onSubmit: () => void;
@@ -27,6 +28,8 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
     },
     itemTotalPrice: selectedProduct!.productBasePrice,
   });
+
+  console.log(selectedProduct);
 
   const handleAddOnsSelect = (value: OptionItem) => {
     value === orderItem.addOns
@@ -82,13 +85,14 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
       >
         {/* product */}
         <View className="flex-row gap-4 ">
-          <Image
-            source={images.p1}
-            resizeMethod="auto"
-            resizeMode="contain"
-            className="size-40 rounded-lg"
-            key={selectedProduct?.productName}
-          />
+          <View className="size-40 rounded-lg overflow-hidden">
+            <Image
+              source={images.p1}
+              contentFit="cover"
+              key={selectedProduct?.productName}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
 
           {/* info and quantity*/}
           <View className="justify-between">

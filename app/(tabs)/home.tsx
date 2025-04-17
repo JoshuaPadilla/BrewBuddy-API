@@ -15,6 +15,7 @@ import { useProductStore } from "@/store/useProduct";
 import BottomSheet, { BottomSheetMethods } from "@devvie/bottom-sheet";
 import BottomSheetComponent from "@/components/bottomSheetContent";
 import { useCartStore } from "@/store/useCart";
+import ProductList from "@/components/product_list";
 
 const HomeTab = () => {
   const sheetRef = useRef<BottomSheetMethods>(null);
@@ -25,6 +26,18 @@ const HomeTab = () => {
   useEffect(() => {
     fetchAllProducts();
   }, []);
+
+  const classicProducts = products.filter(
+    (product) => product.productCategory === "Classic"
+  );
+
+  const fruitFlavored = products.filter(
+    (product) => product.productCategory === "Fruit-Flavored"
+  );
+
+  const dessert = products.filter(
+    (product) => product.productCategory === "Dessert-Inspired"
+  );
 
   const handleCartPress = () => {
     sheetRef.current?.open();
@@ -58,29 +71,34 @@ const HomeTab = () => {
           />
         </View>
 
-        {/* product list */}
+        {/* Product Lists */}
+
         <ScrollView
-          contentContainerClassName="items-center overflow-hidden pb-[100px]"
+          contentContainerClassName="pb-[100px] gap-4"
           showsVerticalScrollIndicator={false}
         >
-          {isLoading ? (
-            <ActivityIndicator
-              color={"#73C088"}
-              className="p-32"
-              size={"large"}
-            />
-          ) : (
-            <View className="flex-row justify-between flex-wrap overflow-hidden">
-              {products.length > 0 &&
-                products.map((product, index) => (
-                  <ProductCard
-                    key={index}
-                    product={product}
-                    onAddToCartPress={handleCartPress}
-                  />
-                ))}
-            </View>
-          )}
+          {/* Classic Milk Teas */}
+
+          <ProductList
+            onAddToCartPress={handleCartPress}
+            list={classicProducts}
+            isLoading={isLoading}
+            title="Classic Milk Teas"
+          />
+
+          <ProductList
+            onAddToCartPress={handleCartPress}
+            list={classicProducts}
+            isLoading={isLoading}
+            title="Fruit Flavored Milk Teas"
+          />
+
+          <ProductList
+            onAddToCartPress={handleCartPress}
+            list={classicProducts}
+            isLoading={isLoading}
+            title="Dessert Inspired Milk Teas"
+          />
         </ScrollView>
       </SafeAreaView>
       <BottomSheet
