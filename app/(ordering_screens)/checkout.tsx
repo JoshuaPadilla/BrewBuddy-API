@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { useCartStore } from "@/store/useCart";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/custom_button";
@@ -10,10 +10,10 @@ import { priceFormatted } from "@/helpers/utils";
 import { useOrderStore } from "@/store/useOrders";
 
 const Checkout = () => {
-  const { selectedItems } = useCartStore();
+  const { selectedItems, removeItem, setSelectedItems } = useCartStore();
   const { createOrder } = useOrderStore();
 
-  const total = selectedItems.reduce((acc, currItem) => {
+  let total = selectedItems.reduce((acc, currItem) => {
     return (acc += currItem.itemTotalPrice);
   }, 0);
 
@@ -24,6 +24,13 @@ const Checkout = () => {
     };
 
     createOrder(newOrder);
+
+    selectedItems.forEach((item) => {
+      removeItem(item._id || "");
+    });
+
+    setSelectedItems([]);
+    total = 0;
   };
 
   return (

@@ -60,7 +60,7 @@ const HomeTab = () => {
 
         {/* product list */}
         <ScrollView
-          contentContainerClassName="items-center overflow-hidden"
+          contentContainerClassName="items-center overflow-hidden pb-[100px]"
           showsVerticalScrollIndicator={false}
         >
           {isLoading ? (

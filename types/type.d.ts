@@ -65,6 +65,6 @@ declare interface Order {
 
 declare interface OrderForm {
   items: OrderItem[];
-  totalPrice: 0;
-  customerNote: string;
+  totalPrice: number;
+  customerNote?: string;
 }

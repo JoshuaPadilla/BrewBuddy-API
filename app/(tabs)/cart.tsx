@@ -49,6 +49,8 @@ const Cart = () => {
   const handleOnCheckoutOne = (item: OrderItem) => {
     setCartSelectedItems([item]);
     goToCheckout();
+
+    setIsSelecting(false);
   };
 
   useEffect(() => {
