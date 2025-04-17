@@ -1,5 +1,9 @@
 import { router } from "expo-router";
 
+export const goBack = () => {
+  router.back();
+};
+
 export const goToHome = () => {
   router.push("/(tabs)/home");
 };
