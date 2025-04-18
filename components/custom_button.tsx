@@ -11,6 +11,7 @@ interface CustomButtonProps {
   iconLeft?: ImageSourcePropType;
   iconRight?: ImageSourcePropType;
   iconSize?: string;
+  iconRightClassName?: string;
   btnClassname?: string;
   textClassname?: string;
   tintColor?: string;
@@ -28,6 +29,7 @@ const CustomButton = ({
   textClassname,
   tintColor,
   disabled,
+  iconRightClassName,
   ...props
 }: CustomButtonProps) => {
   return (
@@ -49,7 +51,7 @@ const CustomButton = ({
       {iconRight && (
         <Image
           source={iconRight}
-          className={iconSize}
+          className={iconRightClassName}
           resizeMode="contain"
           style={{ tintColor: tintColor }}
         />

@@ -37,7 +37,7 @@ const TabIcon = ({
 export default function TabLayout() {
   const { authUser } = useAuthStore();
 
-  if (!authUser) return <Redirect href="/welcome" />;
+  if (!authUser) return <Redirect href="/(onboarding)/welcome" />;
   return (
     <>
       <StatusBar style="dark" translucent />

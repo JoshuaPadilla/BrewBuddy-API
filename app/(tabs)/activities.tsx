@@ -34,11 +34,16 @@ const Activities = () => {
         setSelected={(value) => setFilter(value)}
       />
 
-      <ScrollView contentContainerClassName="pb-[100px] px-6 gap-2">
-        {filteredOrders.length > 0 &&
+      <ScrollView contentContainerClassName="pb-[100px] px-6 gap-2 items-center">
+        {filteredOrders.length > 0 ? (
           filteredOrders.map((order, index) => (
             <OrderActivityCard key={index} order={order} />
-          ))}
+          ))
+        ) : (
+          <Text className="font-poppins-regular text-black-100/50 text-xl">
+            No Items
+          </Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

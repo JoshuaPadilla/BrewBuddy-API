@@ -21,6 +21,12 @@ declare interface RegistrationForm {
   confirmPassword: string;
 }
 
+declare interface UpdateForm {
+  firstName: string;
+  lastName: string;
+  number: string;
+}
+
 declare interface Product {
   _id?: string;
   productName: string;

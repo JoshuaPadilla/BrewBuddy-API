@@ -19,3 +19,23 @@ export const goToRegister = () => {
 export const goToCheckout = () => {
   router.push("/(ordering_screens)/checkout");
 };
+
+export const goToVoucherAndReward = () => {
+  router.push("/(utility_screens)/voucher_rewards");
+};
+
+export const goToFAQ = () => {
+  router.push("/(utility_screens)/faq");
+};
+
+export const goToAccountSettings = () => {
+  router.push("/(utility_screens)/account_settings");
+};
+
+export const goToHelpCenter = () => {
+  router.push("/(utility_screens)/help_center");
+};
+
+export const goToEditProfile = () => {
+  router.push("/(utility_screens)/edit_profile");
+};

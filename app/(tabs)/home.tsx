@@ -88,14 +88,14 @@ const HomeTab = () => {
 
           <ProductList
             onAddToCartPress={handleCartPress}
-            list={classicProducts}
+            list={fruitFlavored}
             isLoading={isLoading}
             title="Fruit Flavored Milk Teas"
           />
 
           <ProductList
             onAddToCartPress={handleCartPress}
-            list={classicProducts}
+            list={dessert}
             isLoading={isLoading}
             title="Dessert Inspired Milk Teas"
           />

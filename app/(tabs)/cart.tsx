@@ -86,7 +86,7 @@ const Cart = () => {
         contentContainerClassName="pb-[100px] gap-2"
         showsVerticalScrollIndicator={false}
       >
-        {cart &&
+        {cart && cart.length > 0 ? (
           cart.map((orderItem, index) => (
             <CartItem
               orderItem={orderItem}
@@ -97,7 +97,12 @@ const Cart = () => {
               onRemove={() => handleRemoveItem(orderItem._id || "")}
               onCheckout={() => handleOnCheckoutOne(orderItem)}
             />
-          ))}
+          ))
+        ) : (
+          <Text className="font-poppins-regular text-black-100/50 text-xl text-center">
+            No Items in your cart
+          </Text>
+        )}
       </ScrollView>
 
       {isSelecting && (

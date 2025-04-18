@@ -29,8 +29,6 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
     itemTotalPrice: selectedProduct!.productBasePrice,
   });
 
-  console.log(selectedProduct);
-
   const handleAddOnsSelect = (value: OptionItem) => {
     value === orderItem.addOns
       ? setOrderItem((prev) => ({ ...prev, addOns: { name: "", price: 0 } }))
@@ -71,6 +69,16 @@ const BottomSheetComponent = ({ onSubmit }: Props) => {
 
   const handleAddToCart = () => {
     addToCart({ ...orderItem, productID: selectedProduct?._id });
+    setOrderItem({
+      quantity: 1,
+      itemSize: { name: "Regular", price: 0 },
+      addOns: { name: "", price: 0 },
+      sweetnessLevel: {
+        name: "Original",
+        price: 0,
+      },
+      itemTotalPrice: selectedProduct!.productBasePrice,
+    });
     onSubmit();
   };
 

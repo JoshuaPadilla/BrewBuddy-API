@@ -8,11 +8,13 @@ import { useCartStore } from "./useCart";
 interface StoreState {
   authUser: User | null;
   isLoggingIn: boolean;
+  isLoading: boolean;
   isRegistering: boolean;
   isCheckingAuth: boolean;
   isLoggingOut: boolean;
   register: (form: RegistrationForm) => void;
   login: (formData: LoginForm) => void;
+  updateUser: (formData: UpdateForm) => void;
   checkAuth: () => void;
   logout: () => void;
 }
@@ -22,6 +24,7 @@ export const useAuthStore = create<StoreState>((set) => ({
   isLoggingIn: false,
   isRegistering: false,
   isCheckingAuth: false,
+  isLoading: false,
   isLoggingOut: false,
 
   register: async (form) => {
@@ -95,6 +98,37 @@ export const useAuthStore = create<StoreState>((set) => ({
       console.log(error);
     } finally {
       set({ isLoggingOut: false });
+    }
+  },
+
+  updateUser: async (form) => {
+    try {
+      set({ isLoading: true });
+
+      const token = await AsyncStorage.getItem("token");
+
+      const res = await fetch(`${BASE_URL}/user`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json", // Add this line
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        set({ authUser: data.updatedUser });
+        Alert.alert("updated successfuly");
+      } else {
+        Alert.alert("updating failed, try again");
+      }
+    } catch (error) {
+      console.log("error in useAuth store", error);
+      Alert.alert("update Error");
+    } finally {
+      set({ isLoading: false });
     }
   },
 

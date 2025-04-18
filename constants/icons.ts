@@ -14,6 +14,14 @@ import check_icon from "@/assets/icons/util_icons/check_icon.png";
 import back_icon from "@/assets/icons/util_icons/back_icon.png";
 import dropdown_icon from "@/assets/icons/util_icons/drop_down_icon.png";
 import dropdown_hide from "@/assets/icons/util_icons/dropdown_hide.png";
+import account_settings_icon from "@/assets/icons/util_icons/account_settings_icon.png";
+import voucher_icon from "@/assets/icons/util_icons/voucher_icon.png";
+import help_center_icon from "@/assets/icons/util_icons/help_center_icon.png";
+import faq_icon from "@/assets/icons/util_icons/faq_icon.png";
+import under_repair from "@/assets/icons/util_icons/under_repair.png";
+import logout_icon from "@/assets/icons/util_icons/logout_icon.png";
+import edit_profile from "@/assets/icons/util_icons/edit_profile.png";
+import caret_right from "@/assets/icons/util_icons/caret_right.png";
 
 interface TabIconsProps {
   tab_account: ImageSourcePropType;
@@ -33,6 +41,14 @@ interface UtilIconsProps {
   back_icon: ImageSourcePropType;
   dropdown_icon: ImageSourcePropType;
   dropdown_hide: ImageSourcePropType;
+  account_settings_icon: ImageSourcePropType;
+  voucher_icon: ImageSourcePropType;
+  help_center_icon: ImageSourcePropType;
+  faq_icon: ImageSourcePropType;
+  under_repair: ImageSourcePropType;
+  logout_icon: ImageSourcePropType;
+  edit_profile: ImageSourcePropType;
+  caret_right: ImageSourcePropType;
 }
 
 export const util_icons: UtilIconsProps = {
@@ -46,6 +62,14 @@ export const util_icons: UtilIconsProps = {
   back_icon,
   dropdown_icon,
   dropdown_hide,
+  account_settings_icon,
+  voucher_icon,
+  help_center_icon,
+  faq_icon,
+  under_repair,
+  logout_icon,
+  edit_profile,
+  caret_right,
 };
 
 export const tab_icons: TabIconsProps = {
