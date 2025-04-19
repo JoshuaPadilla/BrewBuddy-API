@@ -21,18 +21,10 @@ export const useProductStore = create<StoreState>((set) => ({
     try {
       set({ isLoading: true });
 
-      const token = await AsyncStorage.getItem("token");
-
-      if (!token) {
-        console.log("No token found.");
-        return;
-      }
-
       const res = await fetch(`${BASE_URL}/product`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json", // Add this line
-          Authorization: `Bearer ${token}`,
         },
       });
 

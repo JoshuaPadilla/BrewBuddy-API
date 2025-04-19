@@ -13,7 +13,7 @@ const HelpCenter = () => {
 
       <CustomButton
         iconLeft={util_icons.back_icon}
-        title="Voucher & Rewards"
+        title="Help Center"
         btnClassname="flex-row items-center p-6 gap-3"
         textClassname="font-poppins-semibold text-black-100 text-xl"
         onPress={goBack}

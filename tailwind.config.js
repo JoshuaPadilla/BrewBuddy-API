@@ -22,7 +22,7 @@ module.exports = {
           100: "#73C088",
           200: "#D4FEE0",
         },
-        background: "#A6A6A6",
+        background: "#e6f0e9",
         black: {
           100: "#1E1E1E",
           200: "#4D4D4D",
@@ -30,6 +30,11 @@ module.exports = {
           400: "#E5E5E5",
         },
         danger: "#F75555",
+        status: {
+          pending: "#ffcc80",
+          processing: "#64b5f6",
+          completed: "#a5d6a7",
+        },
       },
     },
   },

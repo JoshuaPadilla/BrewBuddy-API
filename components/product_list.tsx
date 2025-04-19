@@ -4,8 +4,8 @@ import ProductCard from "./product_card";
 
 interface ComponentProps {
   list: Product[];
-  isLoading: boolean;
-  onAddToCartPress: () => void;
+  isLoading?: boolean;
+  onAddToCartPress?: () => void;
   title: string;
 }
 

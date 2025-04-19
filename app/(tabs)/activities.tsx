@@ -8,22 +8,32 @@ import OrderActivityCard from "@/components/order_activity_card";
 const ACTIVITY_OPTIONS = ["ON GOING", "COMPLETED"];
 
 const Activities = () => {
-  const { orders, getAllOrders } = useOrderStore();
+  const { orders, getUserOrders } = useOrderStore();
 
   const [filter, setFilter] = useState("ON GOING");
 
   const filteredOrders =
     filter === "ON GOING"
-      ? orders.filter(
-          (order) =>
-            order.status !== "cancelled" && order.status !== "completed"
-        )
-      : orders.filter(
-          (order) => order.status !== "pending" && order.status !== "processing"
-        );
+      ? orders
+          .filter(
+            (order) =>
+              order.status !== "cancelled" && order.status !== "completed"
+          )
+          .reverse()
+      : orders
+          .filter(
+            (order) =>
+              order.status !== "pending" && order.status !== "processing"
+          )
+          .reverse();
 
   useEffect(() => {
-    getAllOrders();
+    const intervalId = setInterval(() => {
+      getUserOrders();
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, [filter]);
 
   return (

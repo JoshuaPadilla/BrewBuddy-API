@@ -6,7 +6,7 @@ import {
   Image as RNImage,
   ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants/images";
 import { util_icons } from "@/constants/icons";
@@ -15,11 +15,28 @@ import CustomButton from "@/components/custom_button";
 import { goToHome, goToLogin } from "@/helpers/router_function";
 import { useProductStore } from "@/store/useProduct";
 import { Image } from "expo-image";
+import ProductList from "@/components/product_list";
 
 const Welcome = () => {
   const totalScreenHeight = Dimensions.get("screen").height;
   const totalScreenWidth = Dimensions.get("screen").width;
-  const { products, isLoading } = useProductStore();
+  const { products, isLoading, fetchAllProducts } = useProductStore();
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
+
+  const classicProducts = products.filter(
+    (product) => product.productCategory === "Classic"
+  );
+
+  const fruitFlavored = products.filter(
+    (product) => product.productCategory === "Fruit-Flavored"
+  );
+
+  const dessert = products.filter(
+    (product) => product.productCategory === "Dessert-Inspired"
+  );
 
   return (
     <SafeAreaView className="flex-1">
@@ -120,11 +137,27 @@ const Welcome = () => {
             size={"large"}
           />
         ) : (
-          <View className="flex-row justify-between flex-wrap">
-            {products.length > 0 &&
-              products.map((product, index) => (
-                <ProductCard key={index} product={product} />
-              ))}
+          <View className="px-4 pb-[50px]">
+            <ProductList
+              onAddToCartPress={goToLogin}
+              list={classicProducts}
+              isLoading={isLoading}
+              title="Classic Milk Teas"
+            />
+
+            <ProductList
+              onAddToCartPress={goToLogin}
+              list={fruitFlavored}
+              isLoading={isLoading}
+              title="Fruit Flavored Milk Teas"
+            />
+
+            <ProductList
+              onAddToCartPress={goToLogin}
+              list={dessert}
+              isLoading={isLoading}
+              title="Dessert Inspired Milk Teas"
+            />
           </View>
         )}
       </ScrollView>

@@ -48,6 +48,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+        <Stack.Screen name="(staff)" options={{ headerShown: false }} />
         <Stack.Screen
           name="(utility_screens)"
           options={{ headerShown: false }}
@@ -61,32 +62,3 @@ export default function RootLayout() {
     </>
   );
 }
-export const Welcome = () => {
-  const totalScreenHeight = Dimensions.get("screen").height;
-  const totalScreenWidth = Dimensions.get("screen").width;
-
-  return (
-    <SafeAreaView className="flex-1">
-      <ScrollView className="pb-[100px]">
-        <View
-          className={`bg-primary items-center`}
-          style={{ height: totalScreenHeight * 0.6 }}
-        >
-          <View className="items-start">
-            {/* <View className="bg-white size-40"></View> */}
-            {/* Image */}
-            <View className="shadow drop-shadow-2xl ">
-              <Image
-                source={images.banner}
-                resizeMode="contain"
-                style={{ width: totalScreenWidth, height: 300 }}
-                className="rounded-2xl"
-              />
-            </View>
-          </View>
-          <View className="bg-white h-52 w-5/6 absolute -bottom-28 rounded-2xl"></View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};

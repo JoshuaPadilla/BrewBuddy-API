@@ -23,11 +23,18 @@ import logout_icon from "@/assets/icons/util_icons/logout_icon.png";
 import edit_profile from "@/assets/icons/util_icons/edit_profile.png";
 import caret_right from "@/assets/icons/util_icons/caret_right.png";
 
+import inventory_icon from "@/assets/icons/tab_icons/inventory_icon.png";
+import orders_icon from "@/assets/icons/tab_icons/orders_icon.png";
+import products_icon from "@/assets/icons/tab_icons/products_icon.png";
+
 interface TabIconsProps {
   tab_account: ImageSourcePropType;
   tab_activities: ImageSourcePropType;
   tab_cart: ImageSourcePropType;
   tab_home: ImageSourcePropType;
+  inventory_icon: ImageSourcePropType;
+  orders_icon: ImageSourcePropType;
+  products_icon: ImageSourcePropType;
 }
 
 interface UtilIconsProps {
@@ -77,4 +84,7 @@ export const tab_icons: TabIconsProps = {
   tab_activities,
   tab_cart,
   tab_home,
+  inventory_icon,
+  orders_icon,
+  products_icon,
 };

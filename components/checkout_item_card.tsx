@@ -11,8 +11,6 @@ interface ComponentProps {
 }
 
 const CheckoutItemCard = ({ item }: ComponentProps) => {
-  console.log(item);
-
   return (
     <View className="bg-white">
       <View className="flex-row gap-4  py-4 px-4 rounded-lg">

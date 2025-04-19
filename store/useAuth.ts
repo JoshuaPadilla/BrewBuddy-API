@@ -75,8 +75,6 @@ export const useAuthStore = create<StoreState>((set) => ({
 
         set({ authUser: data.user });
         await AsyncStorage.setItem("token", data.token);
-
-        router.push("/(tabs)/home");
       } else {
         Alert.alert("Login Failed, try again");
       }

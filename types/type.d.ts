@@ -4,6 +4,7 @@ declare interface User {
   lastName: string;
   number: string;
   email: string;
+  role: string;
   cart: OrderItem[];
 }
 
@@ -62,7 +63,7 @@ declare interface OptionItem {
 
 declare interface Order {
   _id: string;
-  userID?: string;
+  userID?: User;
   items: OrderItem[];
   totalPrice: number;
   orderDate: String;

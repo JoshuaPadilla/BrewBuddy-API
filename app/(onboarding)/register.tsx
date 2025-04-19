@@ -16,8 +16,11 @@ import { goToLogin } from "@/helpers/router_function";
 import { isRegistrationFormValid } from "@/helpers/utils";
 import { useAuthStore } from "@/store/useAuth";
 import Spinner from "react-native-loading-spinner-overlay";
+import { Redirect } from "expo-router";
 
 const Register = () => {
+  const { authUser } = useAuthStore();
+
   const { register, isRegistering } = useAuthStore();
 
   const [form, setForm] = useState<RegistrationForm>({
@@ -34,6 +37,10 @@ const Register = () => {
 
     register(form);
   };
+
+  if (authUser?.role === "user") return <Redirect href="/(tabs)/home" />;
+  if (authUser?.role === "admin")
+    return <Redirect href="/(staff)/orders_screen" />;
 
   return (
     <SafeAreaView className="flex flex-1">
