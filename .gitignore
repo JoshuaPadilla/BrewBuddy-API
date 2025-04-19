@@ -1,0 +1,10 @@
+.qodo
+
+# dependencies
+node_modules/
+
+
+.env*.local
+*.env
+
+dump.txt
