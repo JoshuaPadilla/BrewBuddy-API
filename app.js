@@ -10,6 +10,7 @@ import authRouter from "./routes/authRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
+import inventoryRouter from "./routes/inventoryRoute.js";
 
 dotenv.config({ path: "./config.env" });
 
@@ -24,6 +25,7 @@ app.use("/api/brew-buddy/auth", authRouter);
 app.use("/api/brew-buddy/product", productRouter);
 app.use("/api/brew-buddy/order", orderRouter);
 app.use("/api/brew-buddy/cart", cartRouter);
+app.use("/api/brew-buddy/inventory", inventoryRouter);
 
 // Create HTTP server and bind it to app
 const httpServer = http.createServer(app);
