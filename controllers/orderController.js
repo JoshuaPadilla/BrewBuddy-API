@@ -1,6 +1,7 @@
 import Order from "../models/orderModel.js";
 import User from "../models/userModel.js";
 import { io } from "../app.js";
+import { endOfDay, startOfDay } from "../constants/index.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -37,21 +38,24 @@ export const createOrder = async (req, res) => {
   }
 };
 
-export const getUserOrders = async (req, res) => {
+export const getUserOrderForToday = async (req, res) => {
   try {
     const userID = req.params.userID;
 
-    const user = await User.findById(userID).populate({
-      path: "orders",
-      populate: {
-        path: "items.productID",
-        model: "Product",
+    const orders = await Order.find({
+      userID,
+      orderDate: {
+        $gte: startOfDay,
+        $lte: endOfDay,
       },
+    }).populate({
+      path: "items.productID",
+      model: "Product",
     });
 
     res.status(201).json({
       status: "success",
-      userOrders: user.orders,
+      userOrders: orders,
     });
   } catch (error) {
     console.log(error);
