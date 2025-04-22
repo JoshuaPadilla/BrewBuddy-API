@@ -23,7 +23,6 @@ export const createOrder = async (req, res) => {
     );
 
     io.emit("newIncomingOrder", populatedOrder);
-    console.log("emmitted");
 
     res.status(201).json({
       status: "success",
@@ -42,6 +41,12 @@ export const getUserOrderForToday = async (req, res) => {
   try {
     const userID = req.params.userID;
 
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
     const orders = await Order.find({
       userID,
       orderDate: {
@@ -53,9 +58,31 @@ export const getUserOrderForToday = async (req, res) => {
       model: "Product",
     });
 
+    // Map each order and update its 'items' array with only non-null productIDs
+    const updatedOrders = orders.map((order) => ({
+      ...order.toObject(), // Convert Mongoose document to a plain object for easier modification
+      items: order.items.filter((item) => item.productID !== null),
+    }));
+
+    // const validOrders = filteredOrders.filter(order => order.items.le)
+
+    // orders.forEach((order) => {
+    //   console.log(order);
+    // });
+
+    // orders.forEach((order) => {
+    //   console.log(order.items);
+    // });
+
+    // validOrders.forEach((order, index) => {
+    //   console.log("order ", index);
+    //   order.items.forEach((item) => console.log(item));
+    // });
+    const validOrders = updatedOrders.filter((order) => order.items.length > 0);
+
     res.status(201).json({
       status: "success",
-      userOrders: orders,
+      userOrders: validOrders,
     });
   } catch (error) {
     console.log(error);
@@ -83,9 +110,17 @@ export const getAllOrders = async (req, res) => {
       .populate("userID")
       .populate("items.productID");
 
+    // Map each order and update its 'items' array with only non-null productIDs
+    const updatedOrders = orders.map((order) => ({
+      ...order.toObject(), // Convert Mongoose document to a plain object for easier modification
+      items: order.items.filter((item) => item.productID !== null),
+    }));
+
+    const validOrders = updatedOrders.filter((order) => order.items.length > 0);
+
     res.status(201).json({
       status: "success",
-      orders,
+      orders: validOrders,
     });
   } catch (error) {
     console.log(error);

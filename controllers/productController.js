@@ -6,6 +6,7 @@ import {
   PutObjectCommand,
   s3Client,
 } from "../services/s3Client.js";
+import { io } from "../app.js";
 
 const uploadProductPictureToS3 = async (file, productName) => {
   try {
@@ -55,7 +56,6 @@ export const addProduct = async (req, res) => {
     const newProductData = req.body;
 
     if (req.file) {
-      console.log("here");
       try {
         // Upload file to S3 and get the URL
         const productImageUrl = await uploadProductPictureToS3(
@@ -119,6 +119,93 @@ export const deleteProduct = async (req, res) => {
 
     res.status(200).json({
       status: "success",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: error,
+    });
+  }
+};
+
+export const changeAvailability = async (req, res) => {
+  try {
+    const { productID, availability } = req.params;
+
+    const updatedProduct = await Product.findByIdAndUpdate(productID, {
+      isAvailable: availability === "available",
+    });
+
+    if (!updatedProduct) {
+      res.status(404).json({
+        status: "failed",
+        message: "product not found",
+      });
+    }
+
+    io.emit("refreshProduct");
+    console.log("refresh");
+
+    res.status(200).json({
+      status: "success",
+      updatedProduct,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: error,
+    });
+  }
+};
+
+export const editProduct = async (req, res) => {
+  try {
+    const { productID } = req.params;
+
+    const updatedProductForm = { ...req.body };
+
+    console.log(updatedProductForm);
+
+    if (req.file) {
+      try {
+        // Upload file to S3 and get the URL
+        const productImageUrl = await uploadProductPictureToS3(
+          req.file,
+          updatedProductForm.productName
+        );
+
+        // Add the image URL to the update data
+        updatedProductForm.productImageUrl = productImageUrl;
+      } catch (uploadError) {
+        return res.status(400).json({
+          status: "error",
+          message: "Failed to upload profile picture: " + uploadError.message,
+        });
+      }
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productID,
+
+      updatedProductForm,
+
+      { runValidator: true, new: true }
+    );
+
+    if (!updatedProduct) {
+      res.status(404).json({
+        status: "failed",
+        message: "product not found",
+      });
+    }
+
+    io.emit("refreshProduct");
+
+    res.status(200).json({
+      status: "success",
+      updatedProduct,
     });
   } catch (error) {
     console.log(error);

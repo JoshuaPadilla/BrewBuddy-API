@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isAvailable: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
