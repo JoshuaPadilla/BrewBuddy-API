@@ -20,9 +20,11 @@ export const updateItem = async (req, res) => {
   try {
     const { orderID } = req.params;
 
+    const status = getStatus(req.body.status);
+
     const updateItem = await InventoryItem.findByIdAndUpdate(
       orderID,
-      req.body,
+      { ...req.body, status },
       {
         new: true,
         runValidators: true,

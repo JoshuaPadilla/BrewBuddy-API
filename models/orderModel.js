@@ -68,10 +68,6 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "processing", "delivered", "cancelled"],
     default: "pending",
   },
-  customerNote: {
-    // Added customer notes
-    type: String,
-  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

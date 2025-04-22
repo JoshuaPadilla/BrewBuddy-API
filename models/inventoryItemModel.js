@@ -10,7 +10,7 @@ const inventoryItemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  unitOfmeasurement: {
+  unitOfMeasurement: {
     type: String,
     enum: ["kg", "liters", "pcs"],
     default: "pcs",

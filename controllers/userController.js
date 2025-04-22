@@ -4,12 +4,11 @@ export const updateUser = async (req, res) => {
   try {
     const updatedData = req.body;
 
-    const updatedUser = await User.findOneAndUpdate(req.user._id, updatedData, {
+    const updatedUser = await User.findById(req.user._id, updatedData, {
       new: true,
       runValidators: true,
     });
 
-    s;
     res.status(200).json({
       status: "success",
       updatedUser,

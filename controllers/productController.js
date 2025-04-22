@@ -1,6 +1,11 @@
+import e from "express";
 import { generateUniqueFileName } from "../helpers/utils.js";
 import Product from "../models/productModel.js";
-import { PutObjectCommand, s3Client } from "../services/s3Client.js";
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  s3Client,
+} from "../services/s3Client.js";
 
 const uploadProductPictureToS3 = async (file, productName) => {
   try {
@@ -50,6 +55,7 @@ export const addProduct = async (req, res) => {
     const newProductData = req.body;
 
     if (req.file) {
+      console.log("here");
       try {
         // Upload file to S3 and get the URL
         const productImageUrl = await uploadProductPictureToS3(
@@ -59,6 +65,8 @@ export const addProduct = async (req, res) => {
 
         // Add the image URL to the update data
         newProductData.productImageUrl = productImageUrl;
+
+        console;
       } catch (uploadError) {
         return res.status(400).json({
           status: "error",
@@ -74,6 +82,46 @@ export const addProduct = async (req, res) => {
       newProduct,
     });
   } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: error,
+    });
+  }
+};
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.productID);
+
+    if (!product) {
+      res.status(404).json({
+        status: "failed",
+        message: "product not found",
+      });
+    }
+
+    const imageKey = product.productImageUrl.split("/").slice(-2).join("/");
+
+    const deleteParams = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: imageKey,
+    };
+
+    try {
+      const deleteCommand = new DeleteObjectCommand(deleteParams);
+      await s3Client.send(deleteCommand);
+    } catch (err) {
+      console.error("Error deleting from S3 (user model statics):", err);
+    }
+
+    await Product.findByIdAndDelete(product._id);
+
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (error) {
+    console.log(error);
     res.status(400).json({
       status: "failed",
       message: error,
