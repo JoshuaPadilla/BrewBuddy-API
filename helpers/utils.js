@@ -4,12 +4,32 @@ export const generateUniqueFileName = (originalname, productName) => {
   return `${productName}-${timestamp}.${extension}`;
 };
 
-export const getStatus = (quantity) => {
+export const getStatus = (quantity, unitOfMeasurement) => {
   if (quantity === 0) {
     return "out";
-  } else if (quantity < 5) {
-    return "low";
+  }
+
+  const lowerCaseUnit = unitOfMeasurement.toLowerCase();
+
+  if (lowerCaseUnit === "pcs") {
+    if (quantity <= 20) {
+      return "low";
+    } else {
+      return "in";
+    }
+  } else if (lowerCaseUnit === "kg" || lowerCaseUnit === "liters") {
+    if (quantity <= 2) {
+      return "low";
+    } else {
+      return "in";
+    }
   } else {
-    return "in";
+    // Handle cases with other units of measurement
+    // You might want to set a default low threshold or return a specific status
+    if (quantity <= 5) {
+      return "low";
+    } else {
+      return "in";
+    }
   }
 };

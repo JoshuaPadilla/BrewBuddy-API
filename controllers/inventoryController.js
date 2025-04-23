@@ -1,3 +1,4 @@
+import { io } from "../app.js";
 import { getStatus } from "../helpers/utils.js";
 import InventoryItem from "../models/inventoryItemModel.js";
 
@@ -20,7 +21,7 @@ export const updateItem = async (req, res) => {
   try {
     const { orderID } = req.params;
 
-    const status = getStatus(req.body.status);
+    const status = getStatus(req.body.quantity, req.body.unitOfMeasurement);
 
     const updateItem = await InventoryItem.findByIdAndUpdate(
       orderID,
@@ -30,6 +31,10 @@ export const updateItem = async (req, res) => {
         runValidators: true,
       }
     );
+
+    console.log(updateItem);
+
+    io.emit("refreshInventory");
 
     res.status(200).json({ status: "success", updateItem });
   } catch (error) {
