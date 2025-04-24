@@ -4,11 +4,15 @@ import InventoryItem from "../models/inventoryItemModel.js";
 
 export const addItem = async (req, res) => {
   try {
-    const newItemForm = req.body;
+    const status = getStatus(
+      req.body.quantity,
+      req.body.unitOfMeasurement || "pcs"
+    );
 
-    const status = getStatus(newItemForm.quantity);
+    const newItem = await InventoryItem.create({ ...req.body, status });
 
-    const newItem = await InventoryItem.create({ ...newItemForm, status });
+    io.emit("refreshItems");
+    io.emit("refreshInventory");
 
     res.status(200).json({ status: "success", newItem });
   } catch (error) {
@@ -21,7 +25,10 @@ export const updateItem = async (req, res) => {
   try {
     const { orderID } = req.params;
 
-    const status = getStatus(req.body.quantity, req.body.unitOfMeasurement);
+    const status = getStatus(
+      req.body.quantity,
+      req.body.unitOfMeasurement || "pcs"
+    );
 
     const updateItem = await InventoryItem.findByIdAndUpdate(
       orderID,
@@ -32,9 +39,8 @@ export const updateItem = async (req, res) => {
       }
     );
 
-    console.log(updateItem);
-
     io.emit("refreshInventory");
+    io.emit("refreshItems");
 
     res.status(200).json({ status: "success", updateItem });
   } catch (error) {
@@ -61,6 +67,7 @@ export const deleteItem = async (req, res) => {
     const { orderID } = req.params;
 
     await InventoryItem.findByIdAndDelete(orderID);
+    io.emit("refreshItems");
 
     res.status(200).json({ status: "success" });
   } catch (error) {

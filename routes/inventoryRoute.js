@@ -13,9 +13,9 @@ import {
 const router = express.Router();
 
 router.use(protectRoute);
-router.use(restrictToAdmin);
 
 router.route("/").post(addItem).get(getAllItem);
+router.use(restrictToAdmin);
 
 router.route("/:orderID").get(getItem).patch(updateItem).delete(deleteItem);
 

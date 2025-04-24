@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const inventoryItemSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,14 @@ const inventoryItemSchema = new mongoose.Schema({
     type: String,
     enum: ["low", "out", "in"],
     default: "in",
+  },
+  category: {
+    type: String,
+    enum: ["Add Ons", "Essentials"],
+    default: "Essentials",
+  },
+  price: {
+    type: Number,
   },
 });
 
