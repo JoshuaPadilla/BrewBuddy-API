@@ -16,5 +16,5 @@ mongoose.connect(DB).then(() => {
 const port = process.env.PORT || 8080;
 
 httpServer.listen(port, () => {
-  console.log(`HappyPaws backend is running on port: ${port}`);
+  console.log(`BrewBuddy backend is running on port: ${port}`);
 });

@@ -39,19 +39,19 @@ export const createOrder = async (req, res) => {
 
 export const getUserOrderForToday = async (req, res) => {
   try {
-    const userID = req.params.userID;
+    const { date, userID } = req.params;
 
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
+    const today = new Date(date);
+    today.setHours(0, 0, 0, 0);
 
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
 
     const orders = await Order.find({
       userID,
       orderDate: {
-        $gte: startOfDay,
-        $lte: endOfDay,
+        $gte: today,
+        $lt: tomorrow,
       },
     }).populate({
       path: "items.productID",
@@ -153,7 +153,6 @@ export const processOrder = async (req, res) => {
       });
 
     io.emit("orderProcessed", updatedOrder);
-    console.log("processed");
 
     res.status(201).json({
       status: "success",

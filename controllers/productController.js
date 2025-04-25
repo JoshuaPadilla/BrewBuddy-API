@@ -147,7 +147,6 @@ export const changeAvailability = async (req, res) => {
     }
 
     io.emit("refreshProduct");
-    console.log("refresh");
 
     res.status(200).json({
       status: "success",
@@ -167,8 +166,6 @@ export const editProduct = async (req, res) => {
     const { productID } = req.params;
 
     const updatedProductForm = { ...req.body };
-
-    console.log(updatedProductForm);
 
     if (req.file) {
       try {

@@ -41,11 +41,7 @@ export const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Client connected:", socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("Client disconnected:", socket.id);
-  });
+  socket.on("disconnect", () => {});
 });
 
 // export the server, not just app
