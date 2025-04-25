@@ -76,6 +76,7 @@ export const addProduct = async (req, res) => {
     }
 
     const newProduct = await Product.create(newProductData);
+    io.emit("refreshProduct");
 
     res.status(200).json({
       status: "success",
@@ -116,6 +117,7 @@ export const deleteProduct = async (req, res) => {
     }
 
     await Product.findByIdAndDelete(product._id);
+    io.emit("refreshProduct");
 
     res.status(200).json({
       status: "success",
