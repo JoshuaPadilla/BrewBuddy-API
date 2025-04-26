@@ -40,8 +40,21 @@ export const createOrder = async (req, res) => {
 export const getUserOrderForToday = async (req, res) => {
   try {
     const { date, userID } = req.params;
+    console.log(date);
 
-    const today = new Date(date);
+    let today;
+    if (date && date !== "undefined") {
+      today = new Date(date);
+      if (isNaN(today.getTime())) {
+        return res.status(400).json({
+          status: "failed",
+          message: "Invalid date format provided.",
+        });
+      }
+    } else {
+      today = new Date(); // Default to today's date if no date is provided or is "undefined"
+    }
+
     today.setHours(0, 0, 0, 0);
 
     const tomorrow = new Date(today);
@@ -58,26 +71,11 @@ export const getUserOrderForToday = async (req, res) => {
       model: "Product",
     });
 
-    // Map each order and update its 'items' array with only non-null productIDs
     const updatedOrders = orders.map((order) => ({
-      ...order.toObject(), // Convert Mongoose document to a plain object for easier modification
+      ...order.toObject(),
       items: order.items.filter((item) => item.productID !== null),
     }));
 
-    // const validOrders = filteredOrders.filter(order => order.items.le)
-
-    // orders.forEach((order) => {
-    //   console.log(order);
-    // });
-
-    // orders.forEach((order) => {
-    //   console.log(order.items);
-    // });
-
-    // validOrders.forEach((order, index) => {
-    //   console.log("order ", index);
-    //   order.items.forEach((item) => console.log(item));
-    // });
     const validOrders = updatedOrders.filter((order) => order.items.length > 0);
 
     res.status(201).json({
@@ -85,7 +83,7 @@ export const getUserOrderForToday = async (req, res) => {
       userOrders: validOrders,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching user orders:", error);
     res.status(400).json({
       status: "failed",
       message: error.message || "Failed to fetch orders",
